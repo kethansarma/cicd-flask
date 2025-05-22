@@ -1,0 +1,8 @@
+venv
+.env
+api-automation-agent
+__pycache__
+instance
+*.pyc
+.aws
+.DS_Store
