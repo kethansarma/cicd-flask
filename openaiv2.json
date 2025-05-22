@@ -1,0 +1,149 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Flask Blog Application API",
+        "version": "1.0.0",
+        "description": "A simple blog application built with Flask, demonstrating basic CRUD operations and user authentication. This API primarily serves HTML content."
+    },
+    "basePath": "/",
+    "host": "localhost:8000",
+    "schemes": [
+        "http"
+    ],
+    "tags": [
+        {
+            "name": "Blog",
+            "description": "Operations related to blog posts"
+        },
+        {
+            "name": "Authentication",
+            "description": "User authentication and registration"
+        }
+    ],
+    "paths": {
+        "/": {
+            "get": {
+                "summary": "Get all blog posts",
+                "operationId": "getPosts",
+                "tags": [
+                    "Blog"
+                ],
+                "description": "Retrieves a list of all blog posts, ordered by creation date. Also performs an S3 upload for demonstration purposes.",
+                "produces": [
+                    "text/html"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "A successful response returning the blog index HTML page with posts.",
+                        "schema": {
+                            "type": "string",
+                            "format": "html"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error, potentially related to S3 operations or database issues."
+                    }
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "cookieAuth": {
+            "type": "apiKey",
+            "in": "cookie",
+            "name": "session",
+            "description": "Session-based authentication using Flask's session cookie."
+        }
+    },
+    "definitions": {
+        "Post": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "The unique ID of the post."
+                },
+                "title": {
+                    "type": "string",
+                    "description": "The title of the post."
+                },
+                "body": {
+                    "type": "string",
+                    "description": "The content of the post."
+                },
+                "created": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "Timestamp when the post was created."
+                },
+                "author_id": {
+                    "type": "integer",
+                    "description": "The ID of the user who authored the post."
+                },
+                "username": {
+                    "type": "string",
+                    "description": "The username of the author."
+                }
+            },
+            "required": [
+                "id",
+                "title",
+                "body",
+                "created",
+                "author_id",
+                "username"
+            ]
+        },
+        "PostInput": {
+            "type": "object",
+            "properties": {
+                "title": {
+                    "type": "string",
+                    "description": "The title of the blog post."
+                },
+                "body": {
+                    "type": "string",
+                    "description": "The content of the blog post."
+                }
+            },
+            "required": [
+                "title",
+                "body"
+            ]
+        },
+        "User": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "description": "The unique ID of the user."
+                },
+                "username": {
+                    "type": "string",
+                    "description": "The username of the user."
+                }
+            },
+            "required": [
+                "id",
+                "username"
+            ]
+        },
+        "UserInput": {
+            "type": "object",
+            "properties": {
+                "username": {
+                    "type": "string",
+                    "description": "The username for registration or login."
+                },
+                "password": {
+                    "type": "string",
+                    "description": "The password for registration or login."
+                }
+            },
+            "required": [
+                "username",
+                "password"
+            ]
+        }
+    }
+}
