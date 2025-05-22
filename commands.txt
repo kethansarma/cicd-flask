@@ -1,3 +1,4 @@
 export AWS_CONFIG_FILE="$(pwd)/.aws/config"
 export AWS_SDK_LOAD_CONFIG=1
 aws codeguruprofiler create-profiling-group --profiling-group-name PythonDemoFlaskApplication
+export DEMO_APP_BUCKET_NAME=BUCKET_NAME
